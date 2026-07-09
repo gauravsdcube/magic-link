@@ -46,7 +46,7 @@ class Events
         }
 
         $customizer = Yii::$app->getModule('system-email-customizer');
-        if (!$customizer || !$customizer->isEnabled()) {
+        if (!$customizer || !$customizer->getIsEnabled()) {
             return;
         }
 
