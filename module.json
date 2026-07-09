@@ -1,0 +1,26 @@
+{
+    "id": "magic-link-auth",
+    "name": "Magic Link Auth",
+    "description": "Allow registered users to sign in via a secure one-time magic link sent to their email.",
+    "version": "1.0.0",
+    "humhub": {
+        "minVersion": "1.18.0"
+    },
+    "homepage": "https://dcubeconsulting.co.uk",
+    "authors": [
+        {
+            "name": "D Cube Consulting Ltd",
+            "email": "info@dcubeconsulting.co.uk",
+            "homepage": "https://dcubeconsulting.co.uk",
+            "role": "Developer"
+        }
+    ],
+    "keywords": [
+        "auth",
+        "login",
+        "magic-link",
+        "passwordless"
+    ],
+    "license": "Proprietary",
+    "copyright": "Copyright (c) 2026 D Cube Consulting Ltd. All rights reserved."
+}
