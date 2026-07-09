@@ -6,10 +6,13 @@
 
 namespace humhub\modules\magicLinkAuth;
 
+use humhub\modules\systemEmailCustomizer\components\EmailDefinitionRegistry;
 use Yii;
+use yii\base\Event;
 
 class Events
 {
+    private static bool $emailDefinitionRegistered = false;
     /**
      * Bootstrap module and register login view overrides.
      */
@@ -26,6 +29,41 @@ class Events
         }
 
         self::registerLoginViewOverrides();
+        self::registerEmailDefinition();
+    }
+
+    /**
+     * Register the magic link email with System Email Customizer when available.
+     */
+    protected static function registerEmailDefinition(): void
+    {
+        if (self::$emailDefinitionRegistered) {
+            return;
+        }
+
+        if (!Yii::$app->hasModule('system-email-customizer')) {
+            return;
+        }
+
+        $customizer = Yii::$app->getModule('system-email-customizer');
+        if (!$customizer || !$customizer->isEnabled()) {
+            return;
+        }
+
+        if (!class_exists(EmailDefinitionRegistry::class)) {
+            return;
+        }
+
+        Event::on(
+            EmailDefinitionRegistry::class,
+            EmailDefinitionRegistry::EVENT_REGISTER,
+            static function () {
+                EmailDefinitionRegistry::register(self::getEmailDefinition());
+            }
+        );
+
+        EmailDefinitionRegistry::register(self::getEmailDefinition());
+        self::$emailDefinitionRegistered = true;
     }
 
     /**

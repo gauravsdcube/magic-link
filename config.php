@@ -13,16 +13,6 @@ $events = [
     ['class' => ConsoleApplication::class, 'event' => ConsoleApplication::EVENT_BEFORE_REQUEST, 'callback' => [Events::class, 'onBeforeRequest']],
 ];
 
-if (class_exists('humhub\modules\systemEmailCustomizer\components\EmailDefinitionRegistry')) {
-    $events[] = [
-        'class' => humhub\modules\systemEmailCustomizer\components\EmailDefinitionRegistry::class,
-        'event' => humhub\modules\systemEmailCustomizer\components\EmailDefinitionRegistry::EVENT_REGISTER,
-        'callback' => static function () {
-            humhub\modules\systemEmailCustomizer\components\EmailDefinitionRegistry::register(Events::getEmailDefinition());
-        },
-    ];
-}
-
 return [
     'id' => 'magic-link-auth',
     'class' => humhub\modules\magicLinkAuth\Module::class,
